@@ -508,6 +508,10 @@ private:
 
     Daltonizer mDaltonizer;
     bool mDaltonize;
+
+    //enabled by debug.sf.showfps for debug purpose
+    int  mDebugFps;
+    void debugShowFPS() const;
 };
 
 }; // namespace android
