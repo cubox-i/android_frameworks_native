@@ -575,6 +575,8 @@ private:
 
     // mConnectedProducerToken is used to set a binder death notification on the producer
     sp<IBinder> mConnectedProducerToken;
+
+    uint32_t mFrameLost;
 };
 
 // ----------------------------------------------------------------------------

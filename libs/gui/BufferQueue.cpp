@@ -80,7 +80,7 @@ BufferQueue::BufferQueue(const sp<IGraphicBufferAlloc>& allocator) :
     mBufferHasBeenQueued(false),
     mDefaultBufferFormat(PIXEL_FORMAT_RGBA_8888),
     mConsumerUsageBits(0),
-    mTransformHint(0)
+    mTransformHint(0), mFrameLost(0)
 {
     // Choose a name using the PID and a process-unique ID.
     mConsumerName = String8::format("unnamed-%d-%d", getpid(), createProcessUniqueId());
@@ -229,6 +229,8 @@ int BufferQueue::query(int what, int* outValue)
         break;
     case NATIVE_WINDOW_CONSUMER_USAGE_BITS:
         value = mConsumerUsageBits;
+    case NATIVE_WINDOW_GET_FRAME_LOST:
+        value = mFrameLost;
         break;
     default:
         return BAD_VALUE;
@@ -600,6 +602,7 @@ status_t BufferQueue::queueBuffer(int buf,
             } else {
                 mQueue.push_back(item);
                 listener = mConsumerListener;
+                mFrameLost ++;
             }
         }
 
@@ -1072,6 +1075,7 @@ status_t BufferQueue::consumerConnect(const sp<IConsumerListener>& consumerListe
 
     mConsumerListener = consumerListener;
     mConsumerControlledByApp = controlledByApp;
+    mFrameLost = 0;
 
     return NO_ERROR;
 }
