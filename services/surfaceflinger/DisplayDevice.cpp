@@ -157,10 +157,8 @@ DisplayDevice::DisplayDevice(
 #endif
 
 #ifdef EGL_ANDROID_swap_rectangle
-    // only enable swap rectange in PRIMARY and EXTERNAL display, hwcomposer
-    // has problem to support swap rectange in Virtual display.
     if (eglSetSwapRectangleANDROID(display, surface,
-            0, 0, mDisplayWidth, mDisplayHeight) == EGL_TRUE && mType <= DISPLAY_EXTERNAL) {
+            0, 0, mDisplayWidth, mDisplayHeight) == EGL_TRUE) {
         // This could fail if this extension is not supported by this
         // specific surface (of config)
         mFlags |= SWAP_RECTANGLE;

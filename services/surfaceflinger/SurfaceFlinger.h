@@ -392,11 +392,7 @@ private:
     static void computeVisibleRegions(
 #endif
             const LayerVector& currentLayers, uint32_t layerStack,
-#ifdef EGL_ANDROID_swap_rectangle
-            Region& dirtyRegion, Region& opaqueRegion, bool updateLayerRegion);
-#else
             Region& dirtyRegion, Region& opaqueRegion);
-#endif
 
     void preComposition();
     void postComposition();
